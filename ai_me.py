@@ -57,15 +57,19 @@ def start_message(message):  # выдача запроса
                       "CAACAgIAAxkBAAEJ2HtkxNuNKJiMIsXdTSNoX6_V-kZKdAACpR8AAne9KUlOc3_h-UenUi8E",
                       "CAACAgIAAxkBAAEJ2IFkxN0rVgdHVNdlo0S_vqNsOSvT4QACmyoAAiQ-wEhDyTtdXtCAlC8E",
                       "CAACAgIAAxkBAAEJ2JhkxPrdR_mqCJKWc7cVhb0xTvfgVQACqTAAAlRqwEgKh0BXYKsMHC8E",
-                      "CAACAgIAAxkBAAEJ2JpkxPtAsNt-CGc7ZaB9Oxpqg76WnQACYzEAArzuwEjjkzXp_yb3mC8E"]
-        comp_number = str(random.randint(1, 6))
+                      "CAACAgIAAxkBAAEJ2JpkxPtAsNt-CGc7ZaB9Oxpqg76WnQACYzEAArzuwEjjkzXp_yb3mC8E",
+                      "CAACAgIAAxkBAAEJ2J5kxP6branxwo7QUy2Ndb6nLr_xNwAC0DUAAtR_wUh-CwHXGpzcbC8E",
+                      "CAACAgIAAxkBAAEJ2KdkxP9GY5mP-DzGFxNRum-YMSXofwACnikAAm1twEgKFbEKm5xLnC8E",
+                      "CAACAgIAAxkBAAEJ2LRkxQRa9pSrYAABDO2bFmFSSX48bHAAAhEtAAKqDMFIVbuYYwSMWhMvBA",
+                      "CAACAgIAAxkBAAEJ2LZkxQVubcDJ2aaS1JH5fIjN2R-qOAACQCwAAtzFuUgujRFRKIe_NS8E"]
+        comp_number = str(random.randint(1, 10))
         comp_path = 'compliments/comp' + comp_number + '.txt'
         comp = open(comp_path, encoding='utf-8')
         line = comp.read()
 
         bot.send_message(user_id, line)
         bot.send_sticker(user_id, stick_list[int(comp_number) - 1])
-    # комплекты комплимент+стикер (5 пар)
+    #  комплимент+стикер (9 пар)
     elif her_answer == "я соскучилааась...":
         bot.send_message(user_id, "я тоже ужасно соскучился(")
     elif her_answer == "я тебя люблю":
