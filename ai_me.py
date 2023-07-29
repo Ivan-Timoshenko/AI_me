@@ -55,15 +55,17 @@ def start_message(message):  # выдача запроса
         stick_list = ["CAACAgIAAxkBAAEJ2H1kxNwxf7TdFLFh6hvkU6U3ovFPhwACcwADokkeMmK4dXwMgReiLwQ",
                       "CAACAgIAAxkBAAEJ2H9kxNxLV2EGWgABVSLq2iP_z02asvcAAkchAAIL8yhJnuHjBm57pMwvBA",
                       "CAACAgIAAxkBAAEJ2HtkxNuNKJiMIsXdTSNoX6_V-kZKdAACpR8AAne9KUlOc3_h-UenUi8E",
-                      "CAACAgIAAxkBAAEJ2IFkxN0rVgdHVNdlo0S_vqNsOSvT4QACmyoAAiQ-wEhDyTtdXtCAlC8E"]
-        comp_number = str(random.randint(1, 4))
+                      "CAACAgIAAxkBAAEJ2IFkxN0rVgdHVNdlo0S_vqNsOSvT4QACmyoAAiQ-wEhDyTtdXtCAlC8E",
+                      "CAACAgIAAxkBAAEJ2JhkxPrdR_mqCJKWc7cVhb0xTvfgVQACqTAAAlRqwEgKh0BXYKsMHC8E",
+                      "CAACAgIAAxkBAAEJ2JpkxPtAsNt-CGc7ZaB9Oxpqg76WnQACYzEAArzuwEjjkzXp_yb3mC8E"]
+        comp_number = str(random.randint(1, 6))
         comp_path = 'compliments/comp' + comp_number + '.txt'
         comp = open(comp_path, encoding='utf-8')
         line = comp.read()
 
         bot.send_message(user_id, line)
         bot.send_sticker(user_id, stick_list[int(comp_number) - 1])
-    # комплекты комплимент+стикер (4 пары)
+    # комплекты комплимент+стикер (5 пар)
     elif her_answer == "я соскучилааась...":
         bot.send_message(user_id, "я тоже ужасно соскучился(")
     elif her_answer == "я тебя люблю":
