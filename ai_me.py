@@ -4,15 +4,15 @@ from config import API_TOKEN
 from telebot import types
 
 bot = telebot.TeleBot(API_TOKEN)
-controller = {}
+#controller = {}
 
 INVALID_ANS = "зайка, напиши или выбери что-нибудь другое, этот бот не такой умный как я"
 
 
 def menu(message):
     user_id = message.from_user.id
-    user_state = controller.get(user_id, 'choose')
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=False)
+
     button_cats = types.KeyboardButton("хочу посмотреть котиков!")
     button_my_photos = types.KeyboardButton("хочу увидеть ваню🥺")
     button_she = types.KeyboardButton("а я правда красивая?")
@@ -28,12 +28,11 @@ def start_message(message):
                      "привет, солнышко! я написал этого бота, чтобы быть рядом с тобой, даже если я занят")
     bot.send_sticker(message.from_user.id, "CAACAgIAAxkBAAEJy4VkvilKioPSzvgj_xCj0ObEYQc11wACQCYAAqfRQEmHno1kvKZ05S8E")
 
-    controller[message.from_user.id] = 'choose'
     menu(message)
 
 
-@bot.message_handler(content_types=['text']) # ответ на ее запрос
-def start_message(message):  # выдача запроса
+@bot.message_handler(content_types=['text'])  # ответ на ее запрос
+def start_message(message):
     user_id = message.from_user.id
     her_answer = message.text
     if her_answer == "хочу посмотреть котиков!":
@@ -69,9 +68,14 @@ def start_message(message):  # выдача запроса
 
         bot.send_message(user_id, line)
         bot.send_sticker(user_id, stick_list[int(comp_number) - 1])
-    #  комплимент+стикер (9 пар)
+        # комплимент+стикер (10 пар)
     elif her_answer == "я соскучилааась...":
         bot.send_message(user_id, "я тоже ужасно соскучился(")
+        bot.send_message(user_id, "тяжело быть далеко от тебя, когда ты такой чудесный котик!")
+        bot.send_message(user_id, "только посмотри на себя!")
+        bot.send_video(user_id, open("masha_beautiful_cat.mp4", 'rb'))
+        bot.send_message(user_id, "солнышко, напиши мне, я всегда ужасно скучаю и буду рад побыть с тобой")
+        bot.send_sticker(user_id, "CAACAgIAAxkBAAEJ2Q5kxSj_zNjkq_7k2BJ9gAGWCqorTAACtCkAAq6GwEgEe7TbK-KxAy8E")
     elif her_answer == "я тебя люблю":
         bot.send_message(user_id, "я тоже тебя люблю, кошечка")
         bot.send_message(user_id, "больше всего на свете!")
