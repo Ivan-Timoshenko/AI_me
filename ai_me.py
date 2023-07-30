@@ -4,7 +4,6 @@ from config import API_TOKEN
 from telebot import types
 
 bot = telebot.TeleBot(API_TOKEN)
-#controller = {}
 
 INVALID_ANS = "зайка, напиши или выбери что-нибудь другое, этот бот не такой умный как я"
 
