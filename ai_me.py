@@ -2,6 +2,7 @@ import telebot
 import random
 from config import API_TOKEN
 from telebot import types
+from datetime import datetime
 
 bot = telebot.TeleBot(API_TOKEN)
 
@@ -16,7 +17,9 @@ def menu(message):
     button_my_photos = types.KeyboardButton("хочу увидеть ваню🥺")
     button_she = types.KeyboardButton("а я правда красивая?")
     button_miss_u = types.KeyboardButton("я соскучилааась...")
-    markup.add(button_cats, button_my_photos, button_she, button_miss_u)
+    button_days_left = types.KeyboardButton("когда ты приедешь?")
+    button_im_sad = types.KeyboardButton("мне грустно🥺")
+    markup.add(button_cats, button_my_photos, button_she, button_miss_u, button_days_left, button_im_sad)
 
     bot.send_message(user_id, "что такое, солнышко?", reply_markup=markup)
 
@@ -35,12 +38,13 @@ def start_message(message):
     user_id = message.from_user.id
     her_answer = message.text
     if her_answer == "хочу посмотреть котиков!":
-        pic_number = str(random.randint(1, 25))
+        pic_number = str(random.randint(1, 40))
         pic_path = 'cats/cat' + pic_number + '.png'
         pic = open(pic_path, 'rb')
 
         bot.send_photo(user_id, pic)
-        # комплект фоток с котиками (25 штук)
+        print("котики")
+        # комплект фоток с котиками (40 штук)
     elif her_answer == "хочу увидеть ваню🥺":
         pic_number = str(random.randint(1, 18))
         pic_path = 'vans/me' + pic_number + '.png'
@@ -48,6 +52,7 @@ def start_message(message):
 
         bot.send_message(user_id, "извини, ваня тяжелый) нужно немножко подождать!")
         bot.send_photo(user_id, pic, timeout=60)
+        print("я")
         # комплект фоток со мной (18 штук)
     elif her_answer == "а я правда красивая?":
         stick_list = ["CAACAgIAAxkBAAEJ2H1kxNwxf7TdFLFh6hvkU6U3ovFPhwACcwADokkeMmK4dXwMgReiLwQ",
@@ -67,6 +72,7 @@ def start_message(message):
 
         bot.send_message(user_id, line)
         bot.send_sticker(user_id, stick_list[int(comp_number) - 1])
+        print("комплименты")
         # комплимент+стикер (10 пар)
     elif her_answer == "я соскучилааась...":
         bot.send_message(user_id, "я тоже ужасно соскучился(")
@@ -75,10 +81,34 @@ def start_message(message):
         bot.send_video(user_id, open("masha_beautiful_cat.mp4", 'rb'))
         bot.send_message(user_id, "солнышко, напиши мне, я всегда ужасно скучаю и буду рад побыть с тобой")
         bot.send_sticker(user_id, "CAACAgIAAxkBAAEJ2Q5kxSj_zNjkq_7k2BJ9gAGWCqorTAACtCkAAq6GwEgEe7TbK-KxAy8E")
+        print("скучает")
+    elif her_answer == "когда ты приедешь?":
+        arriving = 20
+        current_daytime = datetime.now()
+        diff = arriving - current_daytime.day
+        if diff > 0:
+            bot.send_message(user_id, "я приеду через " + str(diff) + " дней")
+            bot.send_message(user_id, "осталось немного, я скоро наконец смогу тебя обнять!")
+        elif diff == 0:
+            bot.send_message(user_id, "посмотри-ка внимательнее, я где-то рядом)")
+        elif -4 < diff < 0:
+            bot.send_message(user_id, "мышка, я только уехал( не переживай, я приеду к тебе еще!")
+        print("когда приеду")
     elif her_answer == "я тебя люблю":
         bot.send_message(user_id, "я тоже тебя люблю, кошечка")
         bot.send_message(user_id, "больше всего на свете!")
         bot.send_sticker(user_id, "CAACAgIAAxkBAAEJzh5kv1_0cf5_tbplPApYvEtuHz1eEQACvykAAgy8wEjCOpgiq6Us-S8E")
+        print("ОНА МЕНЯ ЛЮБИТ")
+    elif her_answer == "мне грустно🥺":
+        markup_unnec = types.ReplyKeyboardMarkup(resize_keyboard=False)
+        button_done = types.KeyboardButton("сделала!")
+        markup_unnec.add(button_done)
+        bot.send_message(user_id, "во-первых! вытри слезки и погладь яську!", reply_markup=markup_unnec)
+        print("ЕЙ ГРУСТНО")
+    elif her_answer == "сделала!":
+        bot.send_message(user_id, "умничка!\nво вторых! пожалуйста, напиши мне, что случилось? я не хочу, чтобы ты "
+                                  "грустила")
+        menu(message)
     else:
         bot.send_message(user_id, INVALID_ANS)
 
